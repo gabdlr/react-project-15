@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/** Form **/
+
+.inputStyles{
+    @apply border-2 rounded-md border-gray-300 mt-1 block w-full p-2 bg-gray-50
+}
+
+.labelStyles {
+    @apply text-gray-800
+}
+
+.labelStyles::before{
+    content: ''!important;
+    height: 1.2rem!important;
+    display: block;
+}
