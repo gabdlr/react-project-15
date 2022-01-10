@@ -3,6 +3,7 @@ import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import NewClient from "./pages/NewClient";
 import EditClient from "./pages/EditClient";
+import ViewClient from "./pages/ViewClient";
 
 function App() {
   
@@ -12,6 +13,7 @@ function App() {
           <Route path="/clients" element={<Layout/>}>
             <Route index element={<Home/>} />
             <Route path="new" element={<NewClient/>} />
+            <Route path=":id" element={<ViewClient/>} />
             <Route path="edit/:id" element={<EditClient/>} />
           </Route>
       </Routes>

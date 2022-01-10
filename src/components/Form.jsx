@@ -1,9 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Errors from './Errors';
-const FormComponent = () => {
-
+const FormComponent = ({client}) => {
+    const navigate = useNavigate();
     //YUP schema
     const newClientSchema = Yup.object().shape({ 
         clientName: Yup.string()
@@ -33,8 +34,18 @@ const FormComponent = () => {
     //       //alert(JSON.stringify(values, null, 2));
     //     },
     //   });
-    const handleSubmit = values => {
-        console.log(values);
+    const handleSubmit = async values => {
+        try {
+            const url = "http://localhost:4000/clients";
+            await fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(values)
+            });
+            // const result = await response.json();
+        } catch (error) {
+            console.log(error)
+        }
     }
     return ( 
         <div className='bg-white mt-10 px-5 py-10 rounded-md shadow-md md:w-3/4 mx-auto'>
@@ -61,7 +72,7 @@ const FormComponent = () => {
                     htmlFor="clientCompany"
                 >Client's Company
                 </label>
-                <inputisSubmittingy"
+                <input
                     name="clientCompany"
                     type="text"
                     placeholder='Company of the client'
@@ -118,8 +129,19 @@ const FormComponent = () => {
 
             </form> */}
             <Formik
-                initialValues={{ clientName: '', clientCompany: '', clientEmail: '', clientPhoneNumber: '', clientNote: ''}}
-                onSubmit={(values) => handleSubmit(values)}
+                initialValues={{ 
+                    clientName: client?.clientName ?? "", 
+                    clientCompany: client?.clientCompany ?? "", 
+                    clientEmail: client?.clientEmail ?? "", 
+                    clientPhoneNumber: client?.clientPhoneNumber ?? "", 
+                    clientNote: client?.clientNote ?? ""
+                }}
+                enableReinitialize={true}
+                onSubmit={ async (values, {resetForm}) => {
+                    await handleSubmit(values);
+                    resetForm();
+                    navigate('/clients/')
+                }}
                 validationSchema={newClientSchema}
             >
             {(  {errors, touched, isSubmitting} ) => 
@@ -133,6 +155,7 @@ const FormComponent = () => {
                         <Field 
                             type="text" 
                             name="clientName"
+                            placeholder='Name of the client'
                             className="inputStyles"
                         />
                         {(errors.clientName && touched.clientName) && (<Errors>{errors.clientName}</Errors>) }
@@ -143,7 +166,8 @@ const FormComponent = () => {
                         </label>
                         <Field 
                             type="text" 
-                            name="clientCompany" 
+                            name="clientCompany"
+                            placeholder='Company of the client' 
                             className="inputStyles"
                         />
                         {(errors.clientCompany && touched.clientCompany) && (<Errors>{errors.clientCompany}</Errors>) }
@@ -154,7 +178,8 @@ const FormComponent = () => {
                         </label>
                         <Field 
                             type="email" 
-                            name="clientEmail" 
+                            name="clientEmail"
+                            placeholder='Email of the client' 
                             className="inputStyles"
                         />
                         {(errors.clientEmail && touched.clientEmail) && (<Errors>{errors.clientEmail}</Errors>) }
@@ -165,7 +190,8 @@ const FormComponent = () => {
                         </label>
                         <Field 
                             type="tel" 
-                            name="clientPhoneNumber" 
+                            name="clientPhoneNumber"
+                            placeholder='Phone number of the client' 
                             className="inputStyles"
                         />
                         {(errors.clientPhoneNumber && touched.clientPhoneNumber) && (<Errors>{errors.clientPhoneNumber}</Errors>) }
@@ -177,7 +203,8 @@ const FormComponent = () => {
                         <Field 
                             as="textarea" 
                             type="text" 
-                            name="clientNote" 
+                            name="clientNote"
+                            placeholder='Note about the client' 
                             className="inputStyles resize-none"
                         />
                         <input
@@ -194,5 +221,15 @@ const FormComponent = () => {
         </div>
      );
 }
- 
+
+FormComponent.defaultProps = {
+    client: {
+        clientName: '',
+        clientCompany: '',
+        clientEmail: '',
+        clientPhoneNumber: '',
+        clientNote: ''
+    }
+}
+
 export default FormComponent;
