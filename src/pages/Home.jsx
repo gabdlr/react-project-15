@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Client from '../components/Client';
 const Home = () => {
-    console.log(import.meta.env.VITE_API_URL);
+
     const [clients, setClients] = useState([]);
     useEffect(()=>{
         const getClientsFromAPI = async () => {

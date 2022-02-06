@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import NewClient from "./pages/NewClient";
@@ -10,6 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+          <Route path="/" element={<Navigate to="/clients"/>}/>
           <Route path="/clients" element={<Layout/>}>
             <Route index element={<Home/>} />
             <Route path="new" element={<NewClient/>} />
