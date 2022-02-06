@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormik, Formik, Form, Field } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Errors from './Errors';
-const FormComponent = ({client}) => {
+import Spinner from './Spinner';
+const FormComponent = ({client, loading}) => {
     const navigate = useNavigate();
     //YUP schema
     const newClientSchema = Yup.object().shape({ 
@@ -36,20 +37,38 @@ const FormComponent = ({client}) => {
     //   });
     const handleSubmit = async values => {
         try {
-            const url = "http://localhost:4000/clients";
-            await fetch(url, {
+            if(client.id){
+                const url = import.meta.env.VITE_API_URL + client.id;
+                await fetch(url, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(values)
+                });
+            } else             
+            {
+                const url = import.meta.env.VITE_API_URL;
+                await fetch(url, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(values)
-            });
-            // const result = await response.json();
+                });
+            }
+
         } catch (error) {
             console.log(error)
         }
     }
-    return ( 
-        <div className='bg-white mt-10 px-5 py-10 rounded-md shadow-md md:w-3/4 mx-auto'>
-            <h2 className='text-gray-600 font-bold text-xl uppercase text-center mb-5'>Add Client</h2>
+    return (
+        loading ? 
+        (
+            <Spinner/>
+        ) : 
+        (
+            <div className='bg-white mt-10 px-5 py-10 rounded-md shadow-md md:w-3/4 mx-auto'>
+            <h2 
+                className='text-gray-600 font-bold text-xl uppercase text-center mb-5'
+                >{(client?.clientName ? 'Edit Client' : 'Add Client')}
+            </h2>
             {/* <form
                 onSubmit={formik.handleSubmit}
             >
@@ -219,6 +238,8 @@ const FormComponent = ({client}) => {
 
             </Formik>
         </div>
+        )
+       
      );
 }
 

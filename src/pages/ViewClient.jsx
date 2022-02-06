@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Spinner from '../components/Spinner';
+
 const ViewClient = () => {
     const {id} = useParams();
     const [ loading, setLoading ] = useState(true);
@@ -7,7 +9,7 @@ const ViewClient = () => {
     useEffect(()=>{
         const getClientFromAPI = async () => {
             try {
-                const url = `http://localhost:4000/clients/${id}`;
+                const url = import.meta.env.VITE_API_URL + id;
                 const response = await (await fetch(url)).json();
                 setClient(response);
             } catch (error) {
@@ -23,16 +25,8 @@ const ViewClient = () => {
     
     return (
         loading ? 
-        (   <div className="h-screen flex">
-                <div className="sk-chase">
-                    <div className="sk-chase-dot"></div>
-                    <div className="sk-chase-dot"></div>
-                    <div className="sk-chase-dot"></div>
-                    <div className="sk-chase-dot"></div>
-                    <div className="sk-chase-dot"></div>
-                    <div className="sk-chase-dot"></div>
-                </div>
-            </div>
+        (   
+            <Spinner/>
         )
         : 
         Object.keys(client).length === 0 ?   

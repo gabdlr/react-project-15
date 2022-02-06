@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Client = ({client}) => {
+const Client = ({client, handleDeleteClient}) => {
     const navigate = useNavigate();
-    const {clientName, clientCompany, clientEmail, clientPhoneNumber, clientNote, id} = client;
+    const {clientName, clientCompany, clientEmail, clientPhoneNumber, id} = client;
     return (
         <tr className='border-b hover:bg-gray-50 pb-5'>
             <td className='td'>{clientName}</td>
@@ -23,7 +23,11 @@ const Client = ({client}) => {
                 onClick={() => navigate(`/clients/edit/${id}`)}
                 >Edit
                 </button>
-                <button className='actionsButton bg-red-600 hover:bg-red-700 mb-1'>Delete</button>
+                <button 
+                    className='actionsButton bg-red-600 hover:bg-red-700 mb-1'
+                    onClick={ () => handleDeleteClient(id) }
+                >Delete
+                </button>
             </td>
         </tr> 
      );
