@@ -1,6 +1,6 @@
 {
   "Client": {
-    "name": {
+    "clientName": {
       "string": {}
     },
     "avatarUrl": {
