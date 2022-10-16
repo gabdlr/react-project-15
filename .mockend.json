@@ -1,12 +1,6 @@
 {
-  "clients": [
-    {
-      "clientName": "Gabriel De Los Rios",
-      "clientCompany": "CyS Informática",
-      "clientEmail": "gdelosrios@cys.com.ar",
-      "clientPhoneNumber": "44446666",
-      "clientNote": "A cool guy",
-      "id": 1
-    }
-  ]
+  "User": {
+    "title": { "string": {} }
+  }
 }
+
