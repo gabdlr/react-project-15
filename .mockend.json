@@ -1,6 +1,10 @@
 {
-  "User": {
-    "title": { "string": {} }
-  }
+  "Client": 
+    {
+      "clientName": { "string": ["Gabriel De Los Rios"]},
+      "clientCompany": { "string": ["CyS Informática"]},
+      "clientEmail": { "string": ["gdelosrios@cys.com.ar"]},
+      "clientPhoneNumber": { "string": ["44446666"]},
+      "clientNote": { "string": ["A cool guy"]},
+    }
 }
-
