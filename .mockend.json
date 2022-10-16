@@ -1,10 +1,22 @@
 {
-  "Client": 
-    {
-      "clientName": { "string": {}},
-      "clientCompany": { "string": {}},
-      "clientEmail": { "string": {}},
-      "clientPhoneNumber": { "string": {}},
-      "clientNote": { "string": {} },
-    }
+  "Client": {
+    "clientName": {
+      "string": {}
+    },
+    "clientCompany": {
+      "string": [
+        "working from home",
+        "watching Netflix"
+      ]
+    },
+    "clientEmail": {
+      "regexp": "#[a-z]{5,10}@[a-z]{5}\\.[a-z]{2,3}"
+    },
+    "clientPhoneNumber": {
+      "string": {}
+    },
+    "clientNote": {
+      "string": {}
+    },
+  }
 }
