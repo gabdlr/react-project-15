@@ -1,7 +1,9 @@
 {
   "Client": {
     "clientName": {
-      "string": {}
+      "string": [
+        "Gabriel De Los Rios" 
+      ]
     },
     "avatarUrl": {
       "regexp": "https://i\\.pravatar\\.cc/150\\?u=[0-9]{5}"
